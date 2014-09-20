@@ -97,14 +97,10 @@ dataset <- rbind(xtrain, xtest)
 
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
 
-## find the columns with std() or mean() in their name - based on feature_info.txt documentation
-stdcols <- features[grep("std()",features$V2),c(1)]
-meancols <- features[grep("mean()",features$V2),c(1)]
-stdmeancols <- c(stdcols, meancols)
+## find the columns with std or mean in their name - based on feature_info.txt documentation
+stdmeancols <- features[grep("(std|mean)",features$V2,ignore.case=TRUE),c(1)]
 ## add activity, subject and settype, want to keep these intact
 allcols <- c(stdmeancols, 562, 563, 564)
-## sort to get the columns in order
-allcols <- sort(allcols)
 ## get reduced dataset of mean's and std's from the dataset
 meanstd_ds <- dataset[,allcols]
 
